@@ -4,7 +4,7 @@
     <title>BIOL 322: Biostatistics</title>
     <meta charset="utf-8" />
     <meta name="author" content="Hammed Akande" />
-    <meta name="date" content="2024-02-18" />
+    <meta name="date" content="2024-02-19" />
     <script src="libs/header-attrs/header-attrs.js"></script>
     <link href="libs/remark-css/default.css" rel="stylesheet" />
     <link href="libs/remark-css/metropolis.css" rel="stylesheet" />
@@ -27,7 +27,7 @@ class: center, middle, inverse, title-slide
 ### Laboratory of Quantitative and Community Ecology, Concordia University
 ]
 .date[
-### 2024-02-18
+### 2024-02-19
 ]
 
 ---
@@ -45,11 +45,9 @@ class: inverse, center, middle
 
 - **Understand the assumptions underlying a regression model.**
 
-- **Understand the implications of violating assumptions and what to do when assumptions are violated.**
+- **Understand the implications of violating assumptions.**
 
 - **Evaluate regression model assumptions through visual representations and statistical tests.**
-
-- **Understand the concepts of outliers, and influential points.**
 
 - **Identifying observations within regression models.**
 
@@ -68,7 +66,7 @@ where: `\(Y\)` = response, `\(X\)` = predictor(s), `\(\beta\)` = coefficient(s),
 --
 
 
-- We then use that equation to estimate our `\(\beta\)` parameter(s) and noted that the,the individual estimates `\(\hat{\beta}_j\)` are typically assumed to follow a **normal distribution** with _mean_ `\(\beta_j\)` and _variance_. 
+- We then use that equation to estimate our `\(\beta\)` parameter(s) and noted that the individual estimates `\(\hat{\beta}_j\)` are typically assumed to follow a **normal distribution** with _mean_ `\(\beta_j\)` and _variance_. 
 Such that:
 `$$\hat{\beta}_j \sim N\left(\beta_j, \sigma^2 M_{jj}  \right)$$`
 where:
@@ -113,7 +111,7 @@ class: inverse, center, middle
 
 Basically, model assumptions are explicitly embedded in a model statement,
 
-`$$Y_i = \beta_0 + \beta_1 x_{i1} + \beta_2 x_{i2} + \cdots + \beta_{p-1} x_{i(p-1)} + \epsilon_i$$`
+`$$Y_i = \beta_0 + \beta_1 x_{i1} + \beta_2 x_{i2} + \cdots + \beta_{n-1} x_{i(n-1)} + \epsilon_i$$`
 
 where `\(\epsilon_i \sim N(0, \sigma^2).\)`
 
@@ -154,6 +152,12 @@ the `\(\epsilon_i\)` are `\(iid\)` normal random variables with equal variance.
 
 - However, if these assumptions are not fulfilled, we can still perform some test (e.g.,  a t-test in R), but the outcomes will lack **validity**. The distributions of parameter estimates will deviate from expectations, leading to erroneous acceptance or rejection of hypotheses.
 
+
+---
+class: inverse, center, middle
+
+# Assessing Model Assumptions
+
 ---
 
 # How do we assess our model assumptions?
@@ -177,7 +181,7 @@ $$ \text{Model B:} \quad Y = 2 + 10x + \epsilon, \quad \epsilon \sim N(0, x^2)$$
 
 
 --
-_**Which of the three models defined above do you think would not violate the assumptions?**_
+_**Which of the three models defined above do you think would not violate any assumptions?**_
 
 
 
@@ -211,65 +215,58 @@ mod_3 = function(sample_size = 1000) {
 
 - Let's demonstrate Fitted vs residual plot using (simulated) data from the three models:
 
-Recall that we said model A will show almost no sign of model violation, we can use that to demonstrate what a "good" plot looks like.
+--
+
+.pull-left[
+
+- Recall that we said model A will show almost no sign of model violation, we can use that to demonstrate what a "good" plot looks like.
 
 
 
 ```r
 set.seed(99)
 data_1 = mod_1()
-head(data_1)
+#head(data_1)
 ```
+]
 
-```
-##          x         y
-## 1 5.847119  60.70746
-## 2 1.137817  14.50560
-## 3 6.842647  71.96333
-## 4 9.925088 101.48065
-## 5 5.349936  53.46300
-## 6 9.666141  97.38916
-```
+--
 
----
-# Evaluate model assumptions using plots
-
+.pull-right[
 - Now, let's fit the model and add the fitted line to the scatterplot.
 ![](slides_xar_Hmd_files/figure-html/unnamed-chunk-3-1.png)&lt;!-- --&gt;
+]
+
 
 ---
 # Evaluate model assumptions using plots
 
 - Plot a fitted vs residuals plot.  
 
-
-
+.pull-left[
 ![](slides_xar_Hmd_files/figure-html/unnamed-chunk-4-1.png)&lt;!-- --&gt;
+]
 
+--
 
-
----
-
-# Evaluate model assumptions using plots
+.pull-right[
 
 Two things here:
         
-        1. For each fitted value, the average of the residuals should be approximately zero. This validates the assumption of *linearity*. To highlight this, it's common practice to include a horizontal line at `\(y = 0\)`.
-        2. At every fitted value, the spread/dispersion of the residuals should be relatively consistent. If so, the assumption of *equal variance* holds true.
+1. For each fitted value, residuals should be ~ `\(0\)`. If this is true, the assumption of *linearity* is met. Hence, why we added a line at `\(y = 0\)`.
+2. At every fitted value, the spread/dispersion of the residuals should be relatively constant. If so, the assumption of *equal variance* holds true.
 
---
-In this instance, we can observe that both conditions are satisfied. The residuals are centered around zero, and the spread of the residuals is consistent across the range of fitted values. 
+Here, we can observe that both conditions are satisfied. The residuals are centered around zero, and the spread of the residuals is consistent across the range of fitted values. 
 
---
 
-This suggests that the assumptions of linearity and equal variance are **not violated**.
+]
 
 
 ---
 
 # Model B
 
-Now, lets check an instance where  one of the assumptions is violated. We can use *model B** for this purpose. 
+Now, lets check an instance where  one of the assumptions is violated. We can use **model B** for this purpose. 
 
 &lt;style type="text/css"&gt;
 .side-note {
@@ -284,6 +281,7 @@ Now, lets check an instance where  one of the assumptions is violated. We can us
 }
 &lt;/style&gt;
 
+--
 
 ![](slides_xar_Hmd_files/figure-html/unnamed-chunk-6-1.png)&lt;!-- --&gt;
 
@@ -356,12 +354,21 @@ Now, lets check an instance where  one of the assumptions is violated. We can us
 
 # Model C
 
-- Next, we will illustrate a model that fails to satisfy the linearity assumption. **Model C** serves as an example where `\((Y)\)` is not a linear combination of the predictors. In this scenario, the predictor is `\((x)\)`, but the model incorporates `\((x^2)\)`.
+.pull-left[
+- Next, we will illustrate a model that fails to satisfy the linearity assumption.
+
+- Recall _Model C_: `$$\quad Y = 2 + 10x^2 + \epsilon, \hspace1ex \epsilon \sim N(0, 16)$$`
+
+- **Model C** serves as an example where `\((Y)\)` is not a linear combination of the predictors. In this scenario, the predictor is `\((x)\)`, but the model incorporates `\((x^2)\)`.
+
+]
 
 --
-- plot the fitted vs residual plot for model C.
+.pull-right[
+- Plot the fitted vs residual plot for model C.
 
 ![](slides_xar_Hmd_files/figure-html/unnamed-chunk-10-1.png)&lt;!-- --&gt;
+]
 
 ---
 # Model C
@@ -393,6 +400,10 @@ Now, lets check an instance where  one of the assumptions is violated. We can us
 &lt;/div&gt;    
 
 
+---
+class: inverse, center, middle
+
+# Formal (statistical) Tests
 
 ---
 
@@ -414,8 +425,30 @@ The Levene Test can be performed using the `leveneTest` function from the `car` 
 ```r
 #install.packages("car", dependecies=TRUE)
 library(car)
+```
+
+```
+## Loading required package: carData
+```
+
+```r
 #install.packages("lmtest")
 library(lmtest)
+```
+
+```
+## Loading required package: zoo
+```
+
+```
+## 
+## Attaching package: 'zoo'
+```
+
+```
+## The following objects are masked from 'package:base':
+## 
+##     as.Date, as.Date.numeric
 ```
 
 --
@@ -443,6 +476,7 @@ Remember,
 
 # Breusch-Pagan Test
 
+.pull-left[
 - model_1 - `bptest(fit_1)`
 
 
@@ -453,8 +487,10 @@ Remember,
 ## data:  fit_1
 ## BP = 0.28014, df = 1, p-value = 0.5966
 ```
+]
 
 --
+.pull-right[
 
 - model_2 - `bptest(fit_2)`
 
@@ -466,6 +502,7 @@ Remember,
 ## data:  fit_2
 ## BP = 186.2, df = 1, p-value &lt; 2.2e-16
 ```
+]
 
 --
 
@@ -485,6 +522,7 @@ Remember,
 
 # Levene Test 
 
+
 - model_1
 
 
@@ -494,6 +532,8 @@ Remember,
 ## group   1  0.0889 0.7657
 ##       998
 ```
+
+
 
 --
 
@@ -526,10 +566,16 @@ Remember,
 
 
 ---
+class: inverse, center, middle
+
+# Normality Assumption
+
+
+---
 
 #Assess Normality assumption
 
-Histogram and QQ plot are used to assess the normality assumption. The histogram is used to visualize the distribution of the residuals, while the QQ plot is used to compare the distribution of the residuals to the normal distribution.
+**Histogram** and **QQ plot** are used to assess the normality assumption. The histogram is used to visualize the distribution of the residuals, while the QQ plot is used to compare the distribution of the residuals to the normal distribution.
 
 --
 
@@ -581,6 +627,7 @@ The null and alternative hypotheses are as follows:
 ---
 # Shapiro Wilk Test
 
+.pull-left[
 - Model_1 - `shapiro.test(resid(fit_1))`
 
 
@@ -592,8 +639,11 @@ The null and alternative hypotheses are as follows:
 ## W = 0.99928, p-value = 0.9738
 ```
 
+]
 
 --
+
+.pull-right[
 
 - Model_2 - `shapiro.test(resid(fit_2))`
 
@@ -606,6 +656,7 @@ The null and alternative hypotheses are as follows:
 ## data:  resid(fit_2)
 ## W = 0.96299, p-value = 3.058e-15
 ```
+]
 
 --
 
@@ -622,22 +673,31 @@ The null and alternative hypotheses are as follows:
 ```
 
 
+
+---
+class: inverse, center, middle
+
+# Using real data to assess model assumptions
+
+
 ---
 
 # Example with real data
 
-We can also use real data to do assess model assumption. Fit an additive regression to the `iris` data with `Sepal.Length` as the response and `Petal.Width` and `Species` as predictors
+We can also use real data to do assess model assumption. Fit an additive regression to the `iris` data with `Sepal.Length` as the response and `Petal.Length` and `Species` as predictors
 
 --
 
 
 
+.pull-left[
 - Check for homogeneity of variance
 ![](slides_xar_Hmd_files/figure-html/unnamed-chunk-26-1.png)&lt;!-- --&gt;
+]
 
----
+--
 
-# Check all assumptions
+.pull-right[
 
 
 ```
@@ -648,17 +708,26 @@ We can also use real data to do assess model assumption. Fit an additive regress
 ## BP = 0.26189, df = 3, p-value = 0.967
 ```
 
-
 We can see here that the P value is &gt; 0.05, thus, there is no evidence to reject the `\(H_0\)` (they have equal variance). Put simply, the residuals are **homoscedastic**.
+]
 
 
---
-
-![](slides_xar_Hmd_files/figure-html/unnamed-chunk-28-1.png)&lt;!-- --&gt;
 
 ---
 
-# Model Assumptions 
+# Normality Assumption
+
+We will use the qqnorm to check for normality assumption ands verify this using the shapiro test.
+
+.pull-left[
+
+![](slides_xar_Hmd_files/figure-html/unnamed-chunk-28-1.png)&lt;!-- --&gt;
+]
+
+--
+
+.pull-right[
+
 
 - Confirm with Shapiro Wilk Test
 
@@ -672,6 +741,10 @@ We can see here that the P value is &gt; 0.05, thus, there is no evidence to rej
 ```
 
 From the Shapiro normality test, the P-value &gt; 0.05 (at any conventional level of significance), we have strong evidence to conclude that this data comes from a normal population, as such **normality assumption** is met. 
+
+]
+
+
 
 
 
