@@ -37,50 +37,69 @@ class: inverse, center, middle
 
 ---
 
-# INTRODUCTION
+
+# INTRODUCTION- <span style="font-size: 30px;">What is "Linear"?</span>
+
+- Recall that a linear regression model has an equation of the form:
+
+$$ Y= a + \beta X +  \epsilon  $$
+
+where: $Y$ = response, $X$ = predictor, $\beta$ = slope, a = intercept and $\epsilon$ = error term.
 
 
-- Recall that our linear regression model can be defined as:
-
-$$ Y = X\beta  +  \epsilon $$
-
-where: $Y$ = response, $X$ = predictor(s), $\beta$ = coefficient(s), $\epsilon$ = error term
-
---
-
-
-- We then use that equation to estimate our $\beta$ parameter(s) and noted that the individual estimates $\hat{\beta}_j$ are typically assumed to follow a **normal distribution** with _mean_ $\beta_j$ and _variance_. 
-Such that:
-$$\hat{\beta}_j \sim N\left(\beta_j, \sigma^2 M_{jj}  \right)$$
-where:
-
-**mean** $=$ $\beta_j$, 
-
-**variance** $=$  $\sigma^2 M_{jj}$
-
-**M** $=$ $\left(X^\top X\right)^{-1}$
+![](images/SLR_pic1.png)
 
 
 ---
-# INTRODUCTION
 
-- Multiple metrics, including $R^2$, and **RMSE** are used to assess the adequacy of our model in capturing the underlying patterns in our data. Each of these metrics, to some extent, revolves around the expression:
-$$\sum_{i = 1}^n (y_i - \hat{y}_i)^2$$
+# Slope & Intercept
 
-where $y_i$ is the observed value and $\hat{y}_i$ is the predicted value.
+## **Slope <span style="font-size: 20px;">(regression coefficient)</span>**
 
-
-- So, technically, they gauge the goodness of fit. But, what about the assumptions underlying the model?
-
-
+- The rate at which the response variable changes with respect to the predictor variable.
 
 --
 
-_**So, do we really care about how well our model fits the data?**_ 
+- It is the change in the response variable for a one-unit change in the predictor variable.
 
 --
 
-- If you want to make inference from the model, then our considerations become crucial. 
+  - A slope of 0.6 means that for every 1-unit change in X, there will be a 0.6-unit change in Y.
+
+--
+
+<br>
+
+## **Intercept**
+
+--
+
+- The value of the response variable when the predictor variable is zero.
+
+
+
+
+
+
+---
+#CONTD.
+
+- We then use that equation to estimate our $\beta$ parameter(s) and noted that the individual estimates $\hat{\beta}_j$ are typically assumed to follow a **normal distribution** with _mean_ $\beta_j$ and _variance_. 
+Such that:
+$$\hat{\beta}_j \sim Normal\left(\beta_j, \sigma^2 M_{jj}  \right)$$
+where:
+
+**mean** $=$ $\beta_j$, **variance** $=$  $\sigma^2 M_{jj}$, **M** $=$ $\left(X^\top X\right)^{-1}$
+
+
+
+<br style="margin-bottom: 20px;">
+
+--
+
+_**But, what about the assumptions underlying the model?**_
+
+
 
 
 ---
@@ -96,10 +115,14 @@ Basically, model assumptions are explicitly embedded in a model statement,
 
 $$Y_i = \beta_0 + \beta_1 x_{i1} + \beta_2 x_{i2} + \cdots + \beta_{n-1} x_{i(n-1)} + \epsilon_i$$
 
-where $\epsilon_i \sim N(0, \sigma^2).$
+where $\epsilon_i \sim Normal(0, \sigma^2).$
 
 
-And the assumptions can be represented as **LINE**:
+<br>
+
+--
+
+The assumptions are:
 
 --
 - **L**inearity: the response is a linear combination of the predictors. (With noise about this true linear relationship.)
@@ -108,17 +131,21 @@ And the assumptions can be represented as **LINE**:
 - **I**ndependence: the errors are independent of each other.
 
 --
-- **N**ormality: the distribution of the errors typically follow a normal distribution.
-
---
 - **E**quality of Variance: the variance of error is the same at any set of predictor values.
 
+--
+- **N**ormality: the distribution of the errors typically follow a normal distribution.
+
+
+--
+
+Which can be shortened as **LIEN**
 
 ---
 
 # Assumptions of linear regression
 
-- The linearity assumption is encoded as
+- The **linearity** assumption is encoded in
 
 $$\beta_0 + \beta_1 x_{i1} + \beta_2 x_{i2} + \cdots + \beta_{p-1} x_{i(p-1)}$$
 
@@ -128,6 +155,9 @@ $$\epsilon_i \sim N(0, \sigma^2)$$
 
 the $\epsilon_i$ are $iid$ normal random variables with equal variance.
 
+--
+
+<br style="margin-bottom: 10px;">
 
 - If these assumptions are satisfied, then that's **excellent**! We can make inference, and our conclusions will be reliable.
 
@@ -143,7 +173,7 @@ class: inverse, center, middle
 
 ---
 
-# How do we assess our model assumptions?
+# <span style="font-size: 40px;">How do we assess our model assumptions?</span>
 
 
 
@@ -152,40 +182,61 @@ class: inverse, center, middle
 This is one of the most important metrics in checking model assumptions, especially for linearity and equal variance.
 
 
-- To demonstrate this method, we can work with (simulated) data from three models:
+To demonstrate this method, we can work with (simulated) data from three models:
+
+--
+  - Simulation involves generating (artificial) data that mimic real-world scenarios. 
 
 --
 
-$$\text{Model A:} \quad Y = 2 + 10x + \epsilon, \quad \epsilon \sim N(0, 1)$$
+  - To explore the behaviour of the method, assess the performance, test hypotheses, and gain insights into the underlying processes without relying solely on empirical data
 
-$$ \text{Model B:} \quad Y = 2 + 10x + \epsilon, \quad \epsilon \sim N(0, x^2)$$
 
-$$\text{Model C:} \quad Y = 2 + 10x^2 + \epsilon, \quad \epsilon \sim N(0, 16)$$
+---
 
+# Generate the data
+
+$$ \text{Model A:} \quad Y = 2 + 10x + \epsilon, \quad \epsilon \sim N(0, x^2)$$
+
+$$\text{Model B:} \quad Y = 2 + 10x + \epsilon, \quad \epsilon \sim N(0, 1)$$
+
+$$\text{Model C:} \quad Y = 2 + 10x + \epsilon, \quad \epsilon \sim N(4, 4)$$
+
+$$\text{Model D:} \quad Y = 2 + 10x^2 + \epsilon, \quad \epsilon \sim N(0, 16)$$
+
+
+<br style="margin-bottom: 10px;">
 
 --
 _**Which of the three models defined above do you think would not violate any assumptions?**_
 
 
 
----
+
+```{r, echo = FALSE}
+#---
 # Define the function for the models
 
-```{r, echo = TRUE}
-
 mod_1 = function(sample_size = 1000) {
-  x = runif(n = sample_size) * 10
-  y = 2 + 10 * x + rnorm(n = sample_size, mean = 0, sd = 1)
-  data.frame(x, y)
-}
-
-mod_2 = function(sample_size = 1000) {
   x = runif(n = sample_size) * 10
   y = 2 + 10 * x + rnorm(n = sample_size, mean = 0, sd = x)
   data.frame(x, y)
 }
 
+mod_2 = function(sample_size = 1000) {
+  x = runif(n = sample_size) * 10
+  y = 2 + 10 * x + rnorm(n = sample_size, mean = 0, sd = 1)
+  data.frame(x, y)
+}
+
+
 mod_3 = function(sample_size = 1000) {
+  x = runif(n = sample_size) * 10
+  y = 2 + 10 * x + rnorm(n = sample_size, mean = 4, sd = 2)
+  data.frame(x, y)
+}
+
+mod_4 = function(sample_size = 1000) {
   x = runif(n = sample_size) * 10
   y = 2 + 10 * x ^ 2 + rnorm(n = sample_size, mean = 0, sd = 4)
   data.frame(x, y)
@@ -194,106 +245,116 @@ mod_3 = function(sample_size = 1000) {
 
 
 ---
-# Evaluate model assumptions using plots
+# <span style="font-size: 40px;">Fitted vs residual plot using (simulated) data:</span>
 
-- Let's demonstrate Fitted vs residual plot using (simulated) data from the three models:
-
---
-
-.pull-left[
-
-- Recall that we said model A will show almost no sign of model violation, we can use that to demonstrate what a "good" plot looks like.
+Since we said **model B** will show almost no sign of model violation, we'll use that to demonstrate what a "good" plot looks like.
 
 
-```{r, echo = TRUE}
+```{r, echo = FALSE}
 set.seed(99)
-data_1 = mod_1()
+data_1 = mod_2()
 #head(data_1)
 
 ```
-]
 
 --
-
-.pull-right[
-- Now, let's fit the model and add the fitted line to the scatterplot.
+.pull-left[
+- Add the fitted line to the scatterplot.
 ```{r, echo = FALSE, fig.height = 7, fig.width = 6}
-plot(y ~ x, data = data_1, col = "grey", pch = 20, main = "Model A")
+plot(y ~ x, data = data_1, col = "grey", pch = 20, main = "Model B")
 fit_1 = lm(y ~ x, data = data_1)
 abline(fit_1, col = "darkred", lwd = 3)
 ```
+
 ]
 
-
----
-# Evaluate model assumptions using plots
-
-- Plot a fitted vs residuals plot.  
-
-.pull-left[
-```{r, echo = FALSE, fig.height=8}
+--
+.pull-right[
+- Add the fitted vs residuals plot.
+```{r, echo = FALSE, fig.height = 7, fig.width = 6}
 plot(fitted(fit_1), resid(fit_1), col = "grey", pch = 20,
-     xlab = "Fitted", ylab = "Residuals", main = "Model A")
+     xlab = "Fitted", ylab = "Residuals", main = "Model B")
 abline(h = 0, col = "darkred", lwd = 2)
 ```
 ]
 
---
 
-.pull-right[
+---
+# Evaluate model assumptions
+
 
 Two things here:
-        
-1. For each fitted value, residuals should be ~ $0$. If this is true, the assumption of *linearity* is met. Hence, why we added a line at $y = 0$.
-2. At every fitted value, the spread/dispersion of the residuals should be relatively constant. If so, the assumption of *equal variance* holds true.
+
+--
+
+1. For each fitted value, residuals should be ~ $0$. If this is true, the assumption of **linearity** is met. Hence, why we added a line at $y = 0$.
+
+--
+
+2. At every fitted value, the spread/dispersion of the residuals should be relatively constant. If so, the assumption of **equal variance** holds true.
+
+<br>
+
+--
 
 Here, we can observe that both conditions are satisfied. The residuals are centered around zero, and the spread of the residuals is consistent across the range of fitted values. 
 
 
-]
-
-
 ---
 
-# Model B
+# <span style="font-size: 30px;">A case of violated assumptions (equal variance)</span>
 
-Now, lets check an instance where  one of the assumptions is violated. We can use **model B** for this purpose. 
 
-```{css echo=FALSE}
-.side-note {
-  position: absolute;
-  top: 50%;
-  right: 10px;
-  transform: translateY(-50%);
-  width: 300px; 
-  background-color: #f0f0f0;
-  padding: 10px;
-  border: 1px solid #ccc;
-}
-```
+Now, lets check an instance where  one of the assumptions is violated.
+![](images/regression_pic1_resized.png)
 
 --
 
-```{r, echo = FALSE}
-set.seed(99)
-data_2 = mod_2()
-fit_2 = lm(y ~ x, data = data_2)
-plot(y ~ x, data = data_2, col = "grey", pch = 20, main = "Model B")
-abline(fit_2, col = "darkred", lwd = 3)
-```
-
---
 <div class="side-note">
       <p>
-        In this case, the variance is larger for larger values of the predictor variable $x$. This is a clear indication that the assumption of equal variance is violated.
+        The standard error of Y|X is the average variability observed around the regression line for any value of X. It is often assumed to be equal across all values of X.
+      </p>
+      
+      This is known as the assumption of homoscedasticity or equal variance.
+      
       </p>
 
 </div>  
 
 
+              
+
+
 ---
 
-# Model B
+# <span style="font-size: 35px;">A case of violated assumptions (equal variance)</span>
+
+We can use **model A** to demonstrate this.
+--
+.pull-left[
+
+```{r, echo = FALSE,fig.height = 7, fig.width = 6}
+set.seed(99)
+data_2 = mod_1()
+fit_2 = lm(y ~ x, data = data_2)
+plot(y ~ x, data = data_2, col = "grey", pch = 20, main = "Model A")
+abline(fit_2, col = "darkred", lwd = 3)
+```
+]
+
+--
+.pull-right[
+
+```{r, echo = FALSE,fig.height = 7, fig.width = 6}
+plot(fitted(fit_2), resid(fit_2), col = "grey", pch = 20,
+     xlab = "Fitted", ylab = "Residuals", main = "Model A")
+abline(h = 0, col = "darkred", lwd = 2)
+```
+]
+
+---
+
+# CONTD.
 
 
 ```{css echo=FALSE}
@@ -310,21 +371,14 @@ abline(fit_2, col = "darkred", lwd = 3)
 ```
 
 
+Here, two observations are obvious here.
 
-```{r, echo = FALSE}
-plot(fitted(fit_2), resid(fit_2), col = "grey", pch = 20,
-     xlab = "Fitted", ylab = "Residuals", main = "Model B")
-abline(h = 0, col = "darkred", lwd = 2)
-```
+--
+- Firstly, the residuals appear to be roughly centered around 0 for any given fitted value, indicating that the **linearity** assumption holds. 
 
 --
 
-<div class="side-note">
-      <p>
-        Here, two observations are obvious here. Firstly, the residuals appear to be roughly centered around 0 for any given fitted value, indicating that the linearity assumption holds. However, it's also evident that for higher fitted values, the spread of the residuals increases, indicating a violation of the constant variance assumption. 
-      </p>
-
-</div>    
+- However, it's also evident that for higher fitted values, the spread of the residuals increases, indicating a violation of the **constant variance** assumption.
 
 
 
@@ -353,37 +407,63 @@ abline(h = 0, col = "darkred", lwd = 2)
 ```
 
 
-# Model C
+# <span style="font-size: 35px;">A case of Violated assumptions (linearity)</span>
 
-.pull-left[
-- Next, we will illustrate a model that fails to satisfy the linearity assumption.
 
-- Recall _Model C_: $$\quad Y = 2 + 10x^2 + \epsilon, \hspace1ex \epsilon \sim N(0, 16)$$
-
-- **Model C** serves as an example where $(Y)$ is not a linear combination of the predictors. In this scenario, the predictor is $(x)$, but the model incorporates $(x^2)$.
-
-]
+- Next, we will illustrate a model that fails to satisfy the **linearity** assumption.
 
 --
-.pull-right[
-- Plot the fitted vs residual plot for model C.
 
-```{r, echo = FALSE}
+- Recall _Model D_: $$\quad Y = 2 + 10x^2 + \epsilon, \hspace3ex \epsilon \sim Normal(0, 16)$$
+
+
+--
+
+- **Model D** serves as an example where $(Y)$ is not a linear combination of the predictor. In this scenario, the predictor is $(x)$, but the model incorporates $(x^2)$.
+
+
+---
+
+#CONTD.
+
+.pull-left[
+- Add the fitted line to the scatterplot.
+
+```{r, echo = FALSE,fig.height = 7, fig.width = 6}
 
 set.seed(99)
-data_3 = mod_3()
+data_3 = mod_4()
 fit_3 = lm(y ~ x, data = data_3)
 
 
 #par(mfrow=c(1,2)) 
-plot(y ~ x, data = data_3, col = "grey", pch = 20, main = "Model C")
+plot(y ~ x, data = data_3, col = "grey", pch = 20, main = "Model D")
 abline(fit_3, col = "darkred", lwd = 3)
 
 ```
 ]
 
+
+--
+
+.pull-right[
+- Plot the fitted vs residuals.
+
+```{r, echo = FALSE,fig.height = 7, fig.width = 6}
+
+
+plot(fitted(fit_3), resid(fit_3), col = "grey", pch = 20,
+     xlab = "Fitted", ylab = "Residuals", main = "Model D")
+abline(h = 0, col = "darkorange", lwd = 2)
+
+
+
+```
+
+]
+
 ---
-# Model C
+# CONTD
 
 ```{css echo=FALSE}
 .side-note {
@@ -399,27 +479,29 @@ abline(fit_3, col = "darkred", lwd = 3)
 ```
 
 
-```{r, echo = FALSE}
+
+- Here, the linearity assumption is violated. The residuals are not centered around zero for any given fitted value. This is a clear indication that the model is not capturing the true relationship between the predictors and the response.
 
 
-plot(fitted(fit_3), resid(fit_3), col = "grey", pch = 20,
-     xlab = "Fitted", ylab = "Residuals", main = "Model C")
-abline(h = 0, col = "darkorange", lwd = 2)
+---
+
+# <span style="font-size: 30px;">Residual Plot for Linearity</span>
+
+![](images/linearity_plot_2.png)
 
 
+---
 
-```
+# <span style="font-size: 30px;">Residual Plot for equal variance</span>
+
+![](images/Homogeneity.png)
 
 
---
+---
 
-<div class="side-note">
-      <p>
-        Here, we can see that the equal variance assumption holds. However, the linearity assumption is violated. The residuals are not centered around zero for any given fitted value. This is a clear indication that the model is not capturing the true relationship between the predictors and the response.
-      </p>
+# <span style="font-size: 30px;">Residual Plot for Independence</span>
 
-</div>    
-
+![](images/Independence.png)
 
 ---
 class: inverse, center, middle
@@ -430,24 +512,27 @@ class: inverse, center, middle
 
 # Statistical Test
 
-Another more formal test that can be used to test the assumption of equality of variance is the **Levene and Breusch-Pagan Test**.  
+Another more formal test that can be used to test the assumption of equality of variance is the **Levene Test and Breusch-Pagan Test**.
 
 --
 
-- Constant variance can be referred to as **Homogeneity of Variance or Homoscedasticity**.
+- Equal variance == **Homogeneity of Variance or Homoscedasticity**.
 
-- Conversely, non-constant variance is called **Heteroscedasticity or heteogrenity of variance**. 
+- Unequal variance == **Heteroscedasticity or heterogeneity of variance**. 
+
 
 --
 
 The Levene Test can be performed using the `leveneTest` function from the `car` package. While the Breusch-Pagan Test can be performed using the `bptest` function from the `lmtest` package.
 
-```{r, echo = TRUE}
+```{r, echo = FALSE}
 #install.packages("car", dependecies=TRUE)
 library(car)
 #install.packages("lmtest")
 library(lmtest)
 ```
+
+<br>
 
 --
 The null and alternative hypotheses are as follows:
@@ -461,18 +546,33 @@ $H_a$: Heteroscedasticity.  The errors exhibit non-equal variance about the true
 ---
 # Fit the model
 
-To demonstrate how to use `Breusch-Pagan` and `Levene` test, we will use the three models we have been working with. 
+To demonstrate how to use `Breusch-Pagan` test, we will use the three models we have been working with. 
+
+--
 
 Remember,
 
 - `fit_1` had no violation of assumptions (both linearity and equal variance were satisfied),
+
+<br>
+--
+
 - `fit_2` linearity holds but violated the equal variance assumption,
+
+<br>
+--
+
 - `fit_3` equal variance holds, but violated linearity
+
 
 
 ---
 
 # Breusch-Pagan Test
+
+The Breusch-Pagan test assesses whether the variance of the residuals in a regression model is constant across different values of the predictor variable.
+
+--
 
 .pull-left[
 - model_1 - `bptest(fit_1)`
@@ -492,6 +592,7 @@ bptest(fit_2)
 ```
 ]
 
+<br>
 --
 
 - model_3 - `bptest(fit_3)`
@@ -501,51 +602,53 @@ bptest(fit_3)
 ```
 
 
+
 ---
 
 # Levene Test 
 
-
-- model_1
-
-```{r, echo = FALSE}
-
-# Create groups based on x
-data_1$group <- cut(data_1$x, breaks = 2)
-
-# Apply Levene Test on residuals with grouping
-leveneTest(y ~ group, data = data_1)
-
-```
-
-
+The `Levene` test is designed to assess the equality of variances across different groups.
 
 --
 
-- model_2
+To demonstrate its usefulness, we'll load in a different dataset `Circadian_Data.csv`.
 
 ```{r, echo = FALSE}
-# Create groups based on x
-data_2$group <- cut(data_2$x, breaks = 2)
 
-# Apply Levene Test on residuals with grouping
-leveneTest(y ~ group, data = data_2)
-
+Circadian <- read.csv("Circadian_Data.csv") # Load the csv named "Circadian"
+#order the treatment
+Circadian$treatment = ordered(Circadian$treatment, levels = c("control","eyes", "knee"))
+# Check your levels now
+#levels(Circadian$treatment)
+Circadian_anova <- lm( shift ~ treatment, data=Circadian) # Fit the model
+#anova(Circadian_anova)
+leveneTest(shift ~ factor(treatment), data=Circadian)
 
 ```
 
+--
+
+The P value is > 0.05, there is no evidence to reject the $H_0$ (they have the same variance) and the assumption of **homogeneity** is met
+
+
+<br>
 
 --
 
-- model_3
+*Another example*: **`iris` dataset.** 
 
 ```{r, echo = FALSE}
 
-# Create groups based on x
-data_3$group <- cut(data_3$x, breaks = 2)
+# Load the iris dataset
+data(iris)
 
-# Apply Levene Test on residuals with grouping
-leveneTest(y ~ group, data = data_3)
+# Display the first few rows of the dataset
+#head(iris)
+
+# Perform the Levene test
+levene_test <- leveneTest(Sepal.Length ~ Species, data = iris)
+levene_test
+
 
 ```
 
@@ -568,15 +671,15 @@ class: inverse, center, middle
 
 ```{r, echo=FALSE, fig.height=5, fig.width=15}
 par(mfrow = c(1, 3))
-hist(resid(fit_1),
-     xlab   = "Residuals",
-     main   = "Histogram of Residuals, fit_1",
-     col    = "darkorange",
-     border = "dodgerblue",
-     breaks = 20)
 hist(resid(fit_2),
      xlab   = "Residuals",
      main   = "Histogram of Residuals, fit_2",
+     col    = "darkorange",
+     border = "dodgerblue",
+     breaks = 20)
+hist(resid(fit_1),
+     xlab   = "Residuals",
+     main   = "Histogram of Residuals, fit_1",
      col    = "darkorange",
      border = "dodgerblue",
      breaks = 20)
@@ -597,29 +700,104 @@ hist(resid(fit_3),
 
 ---
 
-# Q-Q Plots
+# <span style="font-size: 23px;">Q-Q Plots</span>
 
-We can also use another powerful approach to assess the normality of errors- a normal quantile-quantile plot (**Q-Q plot**)
-
-We can use the `qqnorm()` function in `R` to plot the points, and adds the line to the plot using the `qqline()` function. We create a Q-Q plot for the residuals of `fit_1` to check if the errors could truly be normally distributed.
+We can also use a normal quantile-quantile plot (**Q-Q plot**)
 
 --
 
-```{r, echo=FALSE, fig.height=5, fig.width=15}
-par(mfrow = c(1, 3))
+Let's create a Q-Q plot for the residuals of `fit_1`.
+
+--
+
+```{r, echo=FALSE, fig.height=5.5, fig.width=14}
+#We can use the `qqnorm()` function in `R` to plot the points, and adds the line to the plot using the #`qqline()` function. 
+
+#par(mfrow = c(1, 3))
 qqnorm(resid(fit_1), main = "Normal Q-Q Plot, fit_1", col = "darkgrey")
 qqline(resid(fit_1), col = "dodgerblue", lwd = 2)
-
-qqnorm(resid(fit_2), main = "Normal Q-Q Plot, fit_2", col = "darkgrey")
-qqline(resid(fit_2), col = "dodgerblue", lwd = 2)
-
-qqnorm(resid(fit_3), main = "Normal Q-Q Plot, fit_3", col = "darkgrey")
-qqline(resid(fit_3), col = "dodgerblue", lwd = 2)
 ```
 
 --
 
-**_Looking at the above plots, can you tell me which one appears normal or not?_**
+- If the data points are "close to the line", then the data is *normally* distributed.
+- y-axis = observed (sample quantiles), and x-axis = expected values (theoretical quantiles).
+
+
+
+---
+
+# <span style="font-size: 25px;">More on Q-Q Plots</span> <span style="font-size: 20px;">(Normal Q-Q Plot from normal & Exponential distribution)</span>
+
+Simulate data from normal distribution to see how "good" Q-Q plot looks like.
+
+
+```{r, echo=FALSE, fig.height=7.5, fig.width=15}
+
+par(mfrow = c(1, 3))
+qqnorm(rnorm(200), main = "Normal Q-Q Plot, Normal Distribution", col = "darkgrey")
+qqline(rnorm(200), col = "dodgerblue", lwd = 2)
+
+qqnorm(rnorm(300), main = "Normal Q-Q Plot, Normal Distribution", col = "darkgrey")
+qqline(rnorm(300), col = "dodgerblue", lwd = 2)
+
+qqnorm(rnorm(400), main = "Normal Q-Q Plot, Normal Distribution", col = "darkgrey")
+qqline(rnorm(400), col = "dodgerblue", lwd = 2)
+
+
+
+
+```
+
+
+---
+
+# <span style="font-size: 30px;">QQ Plot from exponential distribution</span> 
+
+Now, let's simulate data from an exponential distribution and see how the Q-Q plot looks like.
+
+```{r, echo=FALSE, fig.height=8, fig.width=15}
+
+par(mfrow = c(1, 3))
+qqnorm(rexp(200), main = "Normal Q-Q Plot, Exponential Distribution", col = "darkgrey")
+qqline(rexp(200), col = "dodgerblue", lwd = 2)
+
+qqnorm(rexp(300), main = "Normal Q-Q Plot, Exponential Distribution", col = "darkgrey")
+qqline(rexp(300), col = "dodgerblue", lwd = 2)
+
+qqnorm(rexp(400), main = "Normal Q-Q Plot, Exponential Distribution", col = "darkgrey")
+qqline(rexp(400), col = "dodgerblue", lwd = 2)
+
+
+```
+
+
+---
+
+# <span style="font-size: 40px;">Back to our (simulated) data</span>
+
+Recall that `fit_1` did not violate any assumption, `fit_2` violated the homogeneity of variance assumption, and `fit_3` violated the linearity assumption.
+
+--
+
+```{r, echo=FALSE, fig.height=7, fig.width=15}
+#So, going back to our simulated data, let's create and compare Q-Q plots for `fit_1`, `fit_2`, and `fit_3`.
+
+par(mfrow = c(1, 3))
+qqnorm(resid(fit_2), main = "Normal Q-Q Plot, fit_2", col = "darkgrey")
+qqline(resid(fit_2), col = "dodgerblue", lwd = 2)
+
+qqnorm(resid(fit_1), main = "Normal Q-Q Plot, fit_1", col = "darkgrey")
+qqline(resid(fit_1), col = "dodgerblue", lwd = 2)
+
+qqnorm(resid(fit_3), main = "Normal Q-Q Plot, fit_3", col = "darkgrey")
+qqline(resid(fit_3), col = "dodgerblue", lwd = 2)
+
+
+```
+
+--
+Looking at the above plots, can you tell me which one appears normal or not?
 
 
 ---
@@ -629,6 +807,8 @@ qqline(resid(fit_3), col = "dodgerblue", lwd = 2)
 Shapiro-Wilk test is another test that can be used to test the normality of the residuals. The null hypothesis of the test is that the data is normally distributed.
 
 We can use the `shapiro.test()` function in `R` to perform the test.
+
+<br>
 
 --
 
@@ -694,26 +874,38 @@ data(iris)
 mod_fit <- lm(Sepal.Length ~ Petal.Length + Species, data = iris)
 ```
 
+
 .pull-left[
 - Check for homogeneity of variance
-```{r, echo = FALSE, fig.height=6.5, fig.width=8}
+```{r, echo = FALSE, fig.height = 6.5, fig.width = 8}
+
 plot(fitted(mod_fit), resid(mod_fit), col = "grey", pch = 20,
      xlab = "Fitted", ylab = "Residual",
      main = "iris: Fitted vs Residuals")
 abline(h = 0, col = "darkorange", lwd = 2)
+
 ```
+
 ]
+
 
 --
 
 .pull-right[
 
-```{r, echo=FALSE}
+```{r, echo=FALSE,fig.height = 6.5, fig.width = 8}
+
 bptest(mod_fit)
+
+
 ```
 
-We can see here that the P value is > 0.05, thus, there is no evidence to reject the $H_0$ (they have equal variance). Put simply, the residuals are **homoscedastic**.
+
 ]
+
+--
+
+Here, the P value is > 0.05, thus, there is no evidence to reject the $H_0$ (equal variance assumption is met). Put simply, the residuals are **homoscedastic**.
 
 
 
@@ -725,7 +917,7 @@ We will use the qqnorm to check for normality assumption ands verify this using 
 
 .pull-left[
 
-```{r, echo=FALSE, fig.height=8, fig.width=8}
+```{r, echo=FALSE, fig.height=6.5, fig.width=8}
 qqnorm(resid(mod_fit), col = "darkgrey")
 qqline(resid(mod_fit), col = "dodgerblue", lwd = 2)
 ```
@@ -738,15 +930,15 @@ qqline(resid(mod_fit), col = "dodgerblue", lwd = 2)
 
 - Confirm with Shapiro Wilk Test
 
-```{r, echo=FALSE}
+```{r, echo=FALSE,fig.height = 6.5, fig.width = 8}
 shapiro.test(resid(mod_fit))
 ```
 
-From the Shapiro normality test, the P-value > 0.05 (at any conventional level of significance), we have strong evidence to conclude that this data comes from a normal population, as such **normality assumption** is met. 
-
 ]
 
+--
 
+From the Shapiro normality test, the P-value > 0.05 (at any conventional level of significance), we have strong evidence to conclude that this data comes from a normal population, as such **normality assumption** is met. 
 
 
 
