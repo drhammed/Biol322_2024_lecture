@@ -325,7 +325,7 @@ Now, lets check an instance where  one of the assumptions is violated.
 # <span style="font-size: 30px;">A case of violated assumptions (equal variance)</span>
 
 We can use **model A** to demonstrate this:
-$$ \text{Model A:} \quad Y = 2 + 10x + \epsilon, \quad \epsilon \sim N(0, x^2)$$
+$$ \text{Model A:} \quad Y = 2 + 10x + \epsilon, \quad \epsilon \sim Normal(0, x^2)$$
 
 --
 .pull-left[
