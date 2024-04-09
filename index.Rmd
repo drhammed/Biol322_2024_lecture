@@ -741,20 +741,20 @@ The Breusch-Pagan test assesses whether the variance of the residuals in a regre
 --
 
 .pull-left[
-- model_1 - `bptest(fit_1)`
+- model_1 - `bptest(fit_2)`
 
 ```{r, echo = FALSE}
-bptest(fit_1)
+bptest(fit_2)
 ```
 ]
 
 --
 .pull-right[
 
-- model_2 - `bptest(fit_2)`
+- model_2 - `bptest(fit_1)`
 
 ```{r, echo = FALSE}
-bptest(fit_2)
+bptest(fit_1)
 ```
 ]
 

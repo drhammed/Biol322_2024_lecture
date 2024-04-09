@@ -621,22 +621,7 @@ The Breusch-Pagan test assesses whether the variance of the residuals in a regre
 --
 
 .pull-left[
-- model_1 - `bptest(fit_1)`
-
-
-```
-## 
-## 	studentized Breusch-Pagan test
-## 
-## data:  fit_1
-## BP = 0.28014, df = 1, p-value = 0.5966
-```
-]
-
---
-.pull-right[
-
-- model_2 - `bptest(fit_2)`
+- model_1 - `bptest(fit_2)`
 
 
 ```
@@ -645,6 +630,21 @@ The Breusch-Pagan test assesses whether the variance of the residuals in a regre
 ## 
 ## data:  fit_2
 ## BP = 186.2, df = 1, p-value &lt; 2.2e-16
+```
+]
+
+--
+.pull-right[
+
+- model_2 - `bptest(fit_1)`
+
+
+```
+## 
+## 	studentized Breusch-Pagan test
+## 
+## data:  fit_1
+## BP = 0.28014, df = 1, p-value = 0.5966
 ```
 ]
 
