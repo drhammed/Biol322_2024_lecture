@@ -900,7 +900,7 @@ To assess model assumptions using real data, we'll use the **`Lion Nose`** datas
 Lion = read.csv("LionNose.csv")
 mod_fit <- lm(Age ~ PropBlack , data = Lion)
 
-plot(Age ~ PropBlack, data = Lion, col = "blue", pch = 20, main = "Prop. of Black vs Age (in Years)")
+plot(Age ~ PropBlack, data = Lion, col = "blue", pch = 20, main = " Age (in Years) vs Prop. of Black")
 abline(mod_fit, col = "darkred", lwd = 3)
 
 ```
