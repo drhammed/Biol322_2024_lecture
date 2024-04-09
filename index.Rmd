@@ -983,7 +983,7 @@ shapiro.test(resid(mod_fit))
 
 --
 
-From the Shapiro normality test, the P-value > 0.05 (and at any conventional level of significance), we have strong evidence to conclude that this data comes from a normal population, as such **normality assumption** is met. 
+From the Shapiro normality test, with a P-value > 0.05 (and at any conventional level of significance), we have evidence to conclude that this data is consistent with a normal distribution, as such **normality assumption** is met. 
 
 
 
