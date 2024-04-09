@@ -724,25 +724,7 @@ The null and alternative hypotheses are as follows:
 # Shapiro Wilk Test
 
 .pull-left[
-- Model_1 - `shapiro.test(resid(fit_1))`
-
-
-```
-## 
-## 	Shapiro-Wilk normality test
-## 
-## data:  resid(fit_1)
-## W = 0.99928, p-value = 0.9738
-```
-
-]
-
---
-
-.pull-right[
-
-- Model_2 - `shapiro.test(resid(fit_2))`
-
+- Model_1 - `shapiro.test(resid(fit_2))`
 
 
 ```
@@ -751,6 +733,24 @@ The null and alternative hypotheses are as follows:
 ## 
 ## data:  resid(fit_2)
 ## W = 0.96299, p-value = 3.058e-15
+```
+
+]
+
+--
+
+.pull-right[
+
+- Model_2 - `shapiro.test(resid(fit_1))`
+
+
+
+```
+## 
+## 	Shapiro-Wilk normality test
+## 
+## data:  resid(fit_1)
+## W = 0.99928, p-value = 0.9738
 ```
 ]
 

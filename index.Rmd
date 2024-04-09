@@ -834,10 +834,10 @@ $H_a$: The data is not normally distributed.
 # Shapiro Wilk Test
 
 .pull-left[
-- Model_1 - `shapiro.test(resid(fit_1))`
+- Model_1 - `shapiro.test(resid(fit_2))`
 
 ```{r, echo=FALSE}
-shapiro.test(resid(fit_1))
+shapiro.test(resid(fit_2))
 ```
 
 ]
@@ -846,11 +846,11 @@ shapiro.test(resid(fit_1))
 
 .pull-right[
 
-- Model_2 - `shapiro.test(resid(fit_2))`
+- Model_2 - `shapiro.test(resid(fit_1))`
 
 
 ```{r, echo=FALSE}
-shapiro.test(resid(fit_2))
+shapiro.test(resid(fit_1))
 ```
 ]
 
