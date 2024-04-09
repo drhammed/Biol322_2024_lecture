@@ -217,19 +217,17 @@ To demonstrate this method, we can work with (simulated) data from three models:
 
 # Generate the data
 
-$$ \text{Model A:} \quad Y = 2 + 10x + \epsilon, \quad \epsilon \sim N(0, x^2)$$
+$$ \text{Model A:} \quad Y = 2 + 10x + \epsilon, \quad \epsilon \sim Normal(0, x^2)$$
 
-`$$\text{Model B:} \quad Y = 2 + 10x + \epsilon, \quad \epsilon \sim N(0, 1)$$`
+`$$\text{Model B:} \quad Y = 2 + 10x + \epsilon, \quad \epsilon \sim Normal(0, 1)$$`
 
-`$$\text{Model C:} \quad Y = 2 + 10x + \epsilon, \quad \epsilon \sim N(4, 4)$$`
-
-`$$\text{Model D:} \quad Y = 2 + 10x^2 + \epsilon, \quad \epsilon \sim N(0, 16)$$`
+`$$\text{Model C:} \quad Y = 2 + 10x^2 + \epsilon, \quad \epsilon \sim Normal(0, 16)$$`
 
 
 &lt;br style="margin-bottom: 10px;"&gt;
 
 --
-_**Which of the four models defined above do you think would not violate any assumptions?**_
+_**Which of the three models defined above do you think would not violate any assumptions?**_
 
 
 
@@ -386,12 +384,12 @@ Here, two observations are obvious here.
 
 --
 
-- Recall _Model D_: `$$\quad Y = 2 + 10x^2 + \epsilon, \hspace3ex \epsilon \sim Normal(0, 16)$$`
+- Recall _Model C_: `$$\quad Y = 2 + 10x^2 + \epsilon, \hspace3ex \epsilon \sim Normal(0, 16)$$`
 
 
 --
 
-- **Model D** serves as an example where `\((Y)\)` is not a linear combination of the predictor. In this scenario, the predictor is `\((x)\)`, but the model incorporates `\((x^2)\)`.
+- **Model C** serves as an example where `\((Y)\)` is not a linear combination of the predictor. In this scenario, the predictor is `\((x)\)`, but the model incorporates `\((x^2)\)`.
 
 
 ---
@@ -432,7 +430,7 @@ Here, two observations are obvious here.
 
 
 
-- Here, the linearity assumption is violated. The residuals are not centered around zero for any given fitted value. This is a clear indication that the model is not capturing the true relationship between the predictors and the response.
+- Here, the linearity assumption is violated. The residuals are not centered around zero for any given fitted value. This is a clear indication that the model is not capturing the true relationship between the predictor and the response.
 
 
 ---
@@ -785,12 +783,15 @@ class: inverse, center, middle
 To assess model assumptions using real data, we'll use the **`Lion Nose`** dataset.
 
 .pull-left[
-**Context**: Trophy hunting is frequently used (in a sustainable manner) to keep lion populations stable and to raise funds for conservation projects. Targeting older lions who have surpassed their breeding age has minimal effect on their population. However, hunting younger lions can lead to potential instability within the population. Here, Whitman and colleagues (2004) investigated the relationship between the blackness of a male lion's nose and its age. 
+**Context**: Trophy hunting is frequently used (in a sustainable manner) to keep lion populations stable and to raise funds for conservation projects. Targeting older lions who have surpassed their breeding age has minimal effect on their population. However, hunting younger lions can lead to potential instability within the population. Here, Whitman and colleagues (2004) investigated the relationship between the blackness of a male lion's nose and its age.
 
 ]
 
 .pull-right[
 ![](images/Lion_NatGeo.avif)
+
+(source: [National Geographic](https://www.nationalgeographic.com/animals/mammals/facts/african-lion))
+
 ]
 
 
