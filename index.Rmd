@@ -554,7 +554,7 @@ hist(resid(fit_3),
 
 --
 
-- Compares the sample quantiles to the quantiles of a theoretical normal distribution
+- Compares the sample quantiles to the quantiles of a theoretical distribution
 
 <br>
 
@@ -898,9 +898,9 @@ To assess model assumptions using real data, we'll use the **`Lion Nose`** datas
 ```{r, echo=FALSE, fig.height = 6.5, fig.width = 8}
 
 Lion = read.csv("LionNose.csv")
-mod_fit <- lm(PropBlack ~ Age , data = Lion)
+mod_fit <- lm(Age ~ PropBlack , data = Lion)
 
-plot(PropBlack ~ Age, data = Lion, col = "blue", pch = 20, main = "Prop. of Black vs Age (in Years)")
+plot(Age ~ PropBlack, data = Lion, col = "blue", pch = 20, main = "Prop. of Black vs Age (in Years)")
 abline(mod_fit, col = "darkred", lwd = 3)
 
 ```
@@ -983,7 +983,7 @@ shapiro.test(resid(mod_fit))
 
 --
 
-From the Shapiro normality test, with a P-value > 0.05 (and at any conventional level of significance), we have evidence to conclude that this data is consistent with a normal distribution, as such **normality assumption** is met. 
+From the Shapiro normality test, with a P-value > 0.05, we have 'evidence' to conclude that this data is consistent with a normal distribution, as such **normality assumption** is met. 
 
 
 
