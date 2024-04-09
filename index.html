@@ -4,7 +4,7 @@
     <title>BIOL 322: Biostatistics</title>
     <meta charset="utf-8" />
     <meta name="author" content="Hammed Akande" />
-    <meta name="date" content="2024-03-28" />
+    <meta name="date" content="2024-04-09" />
     <script src="libs/header-attrs/header-attrs.js"></script>
     <link href="libs/remark-css/default.css" rel="stylesheet" />
     <link href="libs/remark-css/metropolis.css" rel="stylesheet" />
@@ -24,10 +24,10 @@ class: center, middle, inverse, title-slide
 ### Hammed Akande
 ]
 .institute[
-### Laboratory of Quantitative and Community Ecology, Concordia University
+### Quantitative and Community Ecology Lab, Concordia University
 ]
 .date[
-### 2024-03-28
+### 2024-04-09
 ]
 
 ---
@@ -130,7 +130,7 @@ class: inverse, center, middle
 
 Basically, model assumptions are explicitly embedded in a model statement,
 
-`$$Y_i = \beta_0 + \beta_1 x_{i1} + \beta_2 x_{i2} + \cdots + \beta_{n-1} x_{i(n-1)} + \epsilon_i$$`
+`$$Y_i = \beta_0 + \beta_1 x_{i} + \epsilon_i$$`
 
 where `\(\epsilon_i \sim Normal(0, \sigma^2).\)`
 
@@ -142,21 +142,25 @@ where `\(\epsilon_i \sim Normal(0, \sigma^2).\)`
 The assumptions are:
 
 --
-- **L**inearity: the response is a linear combination of the predictors. (With noise about this true linear relationship.)
+
+- (A): **Linearity**: the response is a linear combination of the predictors. (With noise about this true linear relationship.)
 
 --
-- **I**ndependence: the errors are independent of each other.
+- (B): **Independence**: the errors are independent of each other.
 
 --
-- **E**quality of Variance: the variance of error is the same at any set of predictor values.
+- (C): **Equality of Variance**: the variance of error is the same at any set of predictor values.
 
 --
-- **N**ormality: the distribution of the errors typically follow a normal distribution.
+- (D): **Normality**: the distribution of the errors typically follow a normal distribution.
 
 
 --
 
-Which can be shortened as **LIEN**
+&lt;br style="margin-bottom: 10px;"&gt;
+
+_**Which of those assumptions is most important?**_
+
 
 ---
 
@@ -164,7 +168,7 @@ Which can be shortened as **LIEN**
 
 - The **linearity** assumption is encoded in
 
-`$$\beta_0 + \beta_1 x_{i1} + \beta_2 x_{i2} + \cdots + \beta_{p-1} x_{i(p-1)}$$`
+`$$\beta_0 + \beta_1 x_{i1} + \cdots + \beta_{p-1} x_{i(p-1)}$$`
 
 - while the remaining three, are all encoded in
 
@@ -303,9 +307,11 @@ Now, lets check an instance where  one of the assumptions is violated.
 
 ---
 
-# &lt;span style="font-size: 35px;"&gt;A case of violated assumptions (equal variance)&lt;/span&gt;
+# &lt;span style="font-size: 30px;"&gt;A case of violated assumptions (equal variance)&lt;/span&gt;
 
-We can use **model A** to demonstrate this.
+We can use **model A** to demonstrate this:
+$$ \text{Model A:} \quad Y = 2 + 10x + \epsilon, \quad \epsilon \sim N(0, x^2)$$
+
 --
 .pull-left[
 
@@ -444,10 +450,111 @@ Here, two observations are obvious here.
 
 
 ---
+class: inverse, center, middle
 
-# &lt;span style="font-size: 30px;"&gt;Residual Plot for Independence&lt;/span&gt;
+# Normality Assumption
 
-![](images/Independence.png)
+
+---
+
+#Assess Normality assumption
+
+**Histogram** and **QQ plot** are used to assess the normality assumption. The histogram is used to visualize the distribution of the residuals, while the QQ plot is used to compare the distribution of the residuals to the normal distribution.
+
+--
+
+- Histogram
+
+![](index_files/figure-html/unnamed-chunk-12-1.png)&lt;!-- --&gt;
+
+
+
+--
+
+**_Looking at the above plots, can you tell me which one appears normal or not?_**
+
+
+---
+
+# &lt;span style="font-size: 40px;"&gt;The quantile-quantile (QQ) plot&lt;/span&gt;
+
+- **Quantiles** (`percentiles`) are points in your dataset below which a certain proportion of your data falls. 
+
+&lt;br&gt;
+
+--
+- `QQ plot` then serves as a visual tool to check whether your data likely originates from a certain theoretical distribution (e.g., normal or exponential distributions).
+
+&lt;br&gt;
+
+--
+
+- Compares the sample quantiles to the quantiles of a theoretical normal distribution
+
+&lt;br&gt;
+
+--
+- If the two sets of quantiles come from the same distribution, the points will closely follow the line
+
+&lt;br&gt;
+
+--
+- QQ plot is just a **visual** check and so, somewhat subjective
+
+
+
+
+---
+
+# &lt;span style="font-size: 40px;"&gt;The quantile-quantile (QQ) plot&lt;/span&gt;
+
+
+Let's create a Q-Q plot for the residuals of `fit_1`.
+
+--
+
+![](index_files/figure-html/unnamed-chunk-13-1.png)&lt;!-- --&gt;
+
+--
+
+- If the data points are "close to the line", then the data is *normally* distributed.
+- y-axis = observed (sample quantiles), and x-axis = expected values (theoretical quantiles).
+
+
+
+---
+
+# &lt;span style="font-size: 25px;"&gt;More on Q-Q Plots&lt;/span&gt; &lt;span style="font-size: 20px;"&gt;(Normal Q-Q Plot from normal &amp; Exponential distribution)&lt;/span&gt;
+
+Simulate data from normal distribution to see how "good" Q-Q plot looks like.
+
+
+![](index_files/figure-html/unnamed-chunk-14-1.png)&lt;!-- --&gt;
+
+
+---
+
+# &lt;span style="font-size: 30px;"&gt;QQ Plot from exponential distribution&lt;/span&gt; 
+
+Now, let's simulate data from an exponential distribution and see how the Q-Q plot looks like.
+
+![](index_files/figure-html/unnamed-chunk-15-1.png)&lt;!-- --&gt;
+
+
+---
+
+# &lt;span style="font-size: 40px;"&gt;Back to our (simulated) data&lt;/span&gt;
+
+Recall that `fit_1` did not violate any assumption, `fit_2` violated the homogeneity of variance assumption, and `fit_3` violated the linearity assumption.
+
+--
+
+![](index_files/figure-html/unnamed-chunk-16-1.png)&lt;!-- --&gt;
+
+--
+Looking at the above plots, can you tell me which one appears normal or not?
+
+
 
 ---
 class: inverse, center, middle
@@ -472,6 +579,24 @@ Another more formal test that can be used to test the assumption of equality of 
 The Levene Test can be performed using the `leveneTest` function from the `car` package. While the Breusch-Pagan Test can be performed using the `bptest` function from the `lmtest` package.
 
 
+```
+## Loading required package: carData
+```
+
+```
+## Loading required package: zoo
+```
+
+```
+## 
+## Attaching package: 'zoo'
+```
+
+```
+## The following objects are masked from 'package:base':
+## 
+##     as.Date, as.Date.numeric
+```
 
 &lt;br&gt;
 
@@ -561,13 +686,24 @@ The Breusch-Pagan test assesses whether the variance of the residuals in a regre
 
 ---
 
-# Levene Test 
+# &lt;span style="font-size: 40px;"&gt; Levene Test&lt;/span&gt; 
 
-The `Levene` test is designed to assess the equality of variances across different groups.
+`Levene` test can be used to assess the equality of variances across different groups.
+
+To demonstrate its usefulness, let's use `Circadian_Data.csv` dataset.
+
+--
+.pull-left[
+
+**For context**: the data is about jet lag and adjusting to a different time zone. Campbell and Murphy (1998) claimed people adjust to their new time zone once the light reset their internal, circadian clock. Wright and Czeisler 2002 revisited this study and measured the melatonin production. They subjected 22 people to random treatments; control, knees only and eyes.
+
+Here, we want to compare phase shifts in the circadian rhytm of melatonin productions in participants given another light treatments.
+
+]
 
 --
 
-To demonstrate its usefulness, we'll load in a different dataset `Circadian_Data.csv`.
+.pull-right[
 
 
 ```
@@ -577,112 +713,19 @@ To demonstrate its usefulness, we'll load in a different dataset `Circadian_Data
 ##       19
 ```
 
---
-
-The P value is &gt; 0.05, there is no evidence to reject the `\(H_0\)` (they have the same variance) and the assumption of **homogeneity** is met
-
 
 &lt;br&gt;
 
---
+The P value is &gt; 0.05, there is no evidence to reject the `\(H_0\)` (they have the same variance) and the assumption of **homogeneity** is met
 
-*Another example*: **`iris` dataset.** 
-
-
-```
-## Levene's Test for Homogeneity of Variance (center = median)
-##        Df F value   Pr(&gt;F)   
-## group   2  6.3527 0.002259 **
-##       147                    
-## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-```
-
-
----
-class: inverse, center, middle
-
-# Normality Assumption
-
-
----
-
-#Assess Normality assumption
-
-**Histogram** and **QQ plot** are used to assess the normality assumption. The histogram is used to visualize the distribution of the residuals, while the QQ plot is used to compare the distribution of the residuals to the normal distribution.
-
---
-
-- Histogram
-
-![](index_files/figure-html/unnamed-chunk-18-1.png)&lt;!-- --&gt;
-
-
-
---
-
-**_Looking at the above plots, can you tell me which one appears normal or not?_**
-
-
----
-
-# &lt;span style="font-size: 23px;"&gt;Q-Q Plots&lt;/span&gt;
-
-We can also use a normal quantile-quantile plot (**Q-Q plot**)
-
---
-
-Let's create a Q-Q plot for the residuals of `fit_1`.
-
---
-
-![](index_files/figure-html/unnamed-chunk-19-1.png)&lt;!-- --&gt;
-
---
-
-- If the data points are "close to the line", then the data is *normally* distributed.
-- y-axis = observed (sample quantiles), and x-axis = expected values (theoretical quantiles).
-
-
-
----
-
-# &lt;span style="font-size: 25px;"&gt;More on Q-Q Plots&lt;/span&gt; &lt;span style="font-size: 20px;"&gt;(Normal Q-Q Plot from normal &amp; Exponential distribution)&lt;/span&gt;
-
-Simulate data from normal distribution to see how "good" Q-Q plot looks like.
-
-
-![](index_files/figure-html/unnamed-chunk-20-1.png)&lt;!-- --&gt;
-
-
----
-
-# &lt;span style="font-size: 30px;"&gt;QQ Plot from exponential distribution&lt;/span&gt; 
-
-Now, let's simulate data from an exponential distribution and see how the Q-Q plot looks like.
-
-![](index_files/figure-html/unnamed-chunk-21-1.png)&lt;!-- --&gt;
-
-
----
-
-# &lt;span style="font-size: 40px;"&gt;Back to our (simulated) data&lt;/span&gt;
-
-Recall that `fit_1` did not violate any assumption, `fit_2` violated the homogeneity of variance assumption, and `fit_3` violated the linearity assumption.
-
---
-
-![](index_files/figure-html/unnamed-chunk-22-1.png)&lt;!-- --&gt;
-
---
-Looking at the above plots, can you tell me which one appears normal or not?
+]
 
 
 ---
 
 # Shapiro Wilk Test
 
-Shapiro-Wilk test is another test that can be used to test the normality of the residuals. The null hypothesis of the test is that the data is normally distributed.
+Shapiro-Wilk test is another test that can be used to test the **normality** of the residuals. The null hypothesis of the test is that the data is normally distributed.
 
 We can use the `shapiro.test()` function in `R` to perform the test.
 
@@ -757,15 +800,59 @@ class: inverse, center, middle
 
 # Example with real data
 
-We can also use real data to do assess model assumption. Fit an additive regression to the `iris` data with `Sepal.Length` as the response and `Petal.Length` and `Species` as predictors
-
---
-
-
-
+To assess model assumptions using real data, we'll use the **`Lion Nose`** dataset.
 
 .pull-left[
-- Check for homogeneity of variance
+**Context**: Trophy hunting is frequently used (in a sustainable manner) to keep lion populations stable and to raise funds for conservation projects. Targeting older lions who have surpassed their breeding age has minimal effect on their population. However, hunting younger lions can lead to potential instability within the population. Here, Whitman and colleagues (2004) investigated the relationship between the blackness of a male lion's nose and its age. 
+
+]
+
+.pull-right[
+![](images/Lion_NatGeo.avif)
+]
+
+
+---
+
+# Load the data and Fit the model
+
+
+![](index_files/figure-html/unnamed-chunk-25-1.png)&lt;!-- --&gt;
+
+
+---
+# Load the data and Fit the model
+
+
+```
+## 
+## Call:
+## lm(formula = PropBlack ~ Age, data = Lion)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -0.20406 -0.07758 -0.01750  0.07913  0.29876 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 0.069696   0.041956   1.661    0.107    
+## Age         0.058591   0.008307   7.053 7.68e-08 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 0.1238 on 30 degrees of freedom
+## Multiple R-squared:  0.6238,	Adjusted R-squared:  0.6113 
+## F-statistic: 49.75 on 1 and 30 DF,  p-value: 7.677e-08
+```
+
+
+
+---
+
+# Check for homogeneity of variance
+
+.pull-left[
+
 ![](index_files/figure-html/unnamed-chunk-27-1.png)&lt;!-- --&gt;
 
 ]
@@ -781,7 +868,7 @@ We can also use real data to do assess model assumption. Fit an additive regress
 ## 	studentized Breusch-Pagan test
 ## 
 ## data:  mod_fit
-## BP = 0.26189, df = 3, p-value = 0.967
+## BP = 4.7224, df = 1, p-value = 0.02977
 ```
 
 
@@ -789,7 +876,7 @@ We can also use real data to do assess model assumption. Fit an additive regress
 
 --
 
-Here, the P value is &gt; 0.05, thus, there is no evidence to reject the `\(H_0\)` (equal variance assumption is met). Put simply, the residuals are **homoscedastic**.
+Here, the P value is &lt; 0.05, thus, we have evidence to reject the `\(H_0\)` (equal variance assumption is violated). Put simply, the residuals are **heteroscedastic**.
 
 
 
@@ -797,7 +884,7 @@ Here, the P value is &gt; 0.05, thus, there is no evidence to reject the `\(H_0\
 
 # Normality Assumption
 
-We will use the qqnorm to check for normality assumption ands verify this using the shapiro test.
+We will use the qqnorm to check for normality assumption and verify this using the shapiro test.
 
 .pull-left[
 
@@ -817,14 +904,14 @@ We will use the qqnorm to check for normality assumption ands verify this using 
 ## 	Shapiro-Wilk normality test
 ## 
 ## data:  resid(mod_fit)
-## W = 0.99489, p-value = 0.8805
+## W = 0.9665, p-value = 0.4087
 ```
 
 ]
 
 --
 
-From the Shapiro normality test, the P-value &gt; 0.05 (at any conventional level of significance), we have strong evidence to conclude that this data comes from a normal population, as such **normality assumption** is met. 
+From the Shapiro normality test, the P-value &gt; 0.05 (and at any conventional level of significance), we have strong evidence to conclude that this data comes from a normal population, as such **normality assumption** is met. 
 
 
 
