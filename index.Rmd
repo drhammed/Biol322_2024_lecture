@@ -155,7 +155,7 @@ $$\beta_0 + \beta_1 x_{i1} + \cdots + \beta_{p-1} x_{i(p-1)}$$
 
 - while the remaining three, are all encoded in
 
-$$\epsilon_i \sim N(0, \sigma^2)$$
+$$\epsilon_i \sim Normal(0, \sigma^2)$$
 
 the $\epsilon_i$ are $iid$ normal random variables with equal variance.
 
