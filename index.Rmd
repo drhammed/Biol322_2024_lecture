@@ -434,7 +434,7 @@ fit_3 = lm(y ~ x, data = data_3)
 
 
 #par(mfrow=c(1,2)) 
-plot(y ~ x, data = data_3, col = "grey", pch = 20, main = "Model D")
+plot(y ~ x, data = data_3, col = "grey", pch = 20, main = "Model C")
 abline(fit_3, col = "darkred", lwd = 3)
 
 ```
