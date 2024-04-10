@@ -1,7 +1,7 @@
 ---
 title: "BIOL 322: Biostatistics"
 subtitle: "Guest Lecture: Testing Model Assumptions"
-author: "Hammed Akande"
+author: "Hammed A. Akande"
 institute: "Quantitative and Community Ecology Lab, Concordia University"
 date: "`r Sys.Date()`"
 output:
